@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DataStore</string>
+    <string name="title_activity_shared_preference">SharedPreferenceActivity</string>
+    <string name="title_activity_data_store">DataStoreActivity</string>
+</resources>
