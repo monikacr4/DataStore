@@ -8,11 +8,11 @@ import com.lilly.datastore.repository.PreferenceRepo
 class PreferenceVM(private val repo: PreferenceRepo): ViewModel(){
     val studentDetails = MutableLiveData<Student?>()
 
-    fun getDetails(){
-       // studentDetails.value = repo.getFromRepo()
-    }
-
     fun saveDetails(student: Student){
         repo.saveToRepo(student)
+    }
+
+    fun getDetails(){
+        studentDetails.value = repo.getFromRepo()
     }
 }

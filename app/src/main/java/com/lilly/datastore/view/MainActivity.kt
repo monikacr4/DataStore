@@ -18,6 +18,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -78,6 +79,12 @@ fun DataInput(mainVM: MainVM){
                     keyboardType = KeyboardType.Number
                 )
             )
+        }
+        Spacer(modifier = Modifier.height(26.dp))
+        Row(horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically) {
+            Switch(checked = mainVM.status, onCheckedChange = { mainVM.status = it })
+            Text(text = "Pass: ${mainVM.status}")
         }
         Spacer(modifier = Modifier.height(30.dp))
         Button(
