@@ -8,8 +8,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
+import com.lilly.datastore.pref.StudentPrefImpl
 import com.lilly.datastore.view.ui.theme.DataStoreTheme
 
 class DataStoreActivity : ComponentActivity() {
@@ -22,7 +26,7 @@ class DataStoreActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting2("Android")
+                    GetName()
                 }
             }
         }
@@ -30,14 +34,18 @@ class DataStoreActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting2(name: String) {
-    Text(text = "Hello $name!")
+fun GetName() {
+    val context = LocalContext.current
+    val dataStore = StudentPrefImpl(context)
+    val getName = dataStore.getName().collectAsState(initial = "")
+    Text(text = getName.value!!,
+            fontSize = 18.sp)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview3() {
     DataStoreTheme {
-        Greeting2("Android")
+        GetName()
     }
 }

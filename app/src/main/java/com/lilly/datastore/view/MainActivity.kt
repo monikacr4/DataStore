@@ -20,14 +20,19 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lilly.datastore.ui.theme.DataStoreTheme
+import com.lilly.datastore.pref.StudentPref
+import com.lilly.datastore.pref.StudentPrefImpl
+import com.lilly.datastore.view.ui.theme.DataStoreTheme
 import com.lilly.datastore.viewmodel.MainVM
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +54,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DataInput(mainVM: MainVM){
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val dataStore = remember(context) {StudentPrefImpl(context)}
     Column(
         modifier = Modifier
             .padding(40.dp),
@@ -76,7 +83,10 @@ fun DataInput(mainVM: MainVM){
         Spacer(modifier = Modifier.height(30.dp))
         Button(
             onClick = {
-                    context.startActivity(Intent(context, SharedPreferenceActivity::class.java))
+                    context.startActivity(Intent(context, DataStoreActivity::class.java))
+                scope.launch {
+                    dataStore.saveName(mainVM.name)
+                }
             },
             modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
         ) {
