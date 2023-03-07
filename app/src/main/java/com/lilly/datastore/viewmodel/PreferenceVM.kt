@@ -9,7 +9,7 @@ class PreferenceVM(private val repo: PreferenceRepo): ViewModel(){
     val studentDetails = MutableLiveData<Student?>()
 
     fun getDetails(){
-        studentDetails.value = repo.getFromRepo()
+       // studentDetails.value = repo.getFromRepo()
     }
 
     fun saveDetails(student: Student){

@@ -22,11 +22,11 @@ class PreferenceRepo(private val context: Context) {
         editor.apply()
     }
 
-    fun getFromRepo():Student {
-        val sharedPref: SharedPreferences =
-            context.getSharedPreferences(sp, MODE_PRIVATE)
-        val nameStudent = sharedPref.getString(nameKey, null)
-        val marksStudent = sharedPref.getString(marksKey, null)
-        return Student(name = nameStudent, marks = marksStudent)
-    }
+//    fun getFromRepo():Student {
+//        val sharedPref: SharedPreferences =
+//            context.getSharedPreferences(sp, MODE_PRIVATE)
+//        val nameStudent = sharedPref.getString(nameKey, null)
+//        val marksStudent = sharedPref.getString(marksKey, null)
+//        return Student(name = nameStudent, marks = marksStudent)
+//    }
 }

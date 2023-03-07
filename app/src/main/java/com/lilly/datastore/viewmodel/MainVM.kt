@@ -9,4 +9,5 @@ import androidx.lifecycle.AndroidViewModel
 class MainVM(application: Application) : AndroidViewModel(application) {
     var name by mutableStateOf("")
     var marks by mutableStateOf("")
+    var status by mutableStateOf(false)
 }

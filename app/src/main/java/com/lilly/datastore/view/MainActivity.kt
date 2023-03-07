@@ -28,7 +28,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lilly.datastore.pref.StudentPref
 import com.lilly.datastore.pref.StudentPrefImpl
 import com.lilly.datastore.view.ui.theme.DataStoreTheme
 import com.lilly.datastore.viewmodel.MainVM
@@ -85,12 +84,12 @@ fun DataInput(mainVM: MainVM){
             onClick = {
                     context.startActivity(Intent(context, DataStoreActivity::class.java))
                 scope.launch {
-                    dataStore.saveName(mainVM.name)
+                    dataStore.saveInfo(mainVM.name, mainVM.marks.toInt(), mainVM.status)
                 }
             },
             modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
         ) {
-            Text(text = "Evaluate")
+            Text(text = "Datastore")
         }
     }
 }
