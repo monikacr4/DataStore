@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lilly.datastore.model.Student
 import com.lilly.datastore.pref.StudentPrefImpl
+import com.lilly.datastore.repository.PreferenceRepo
 import com.lilly.datastore.view.ui.theme.DataStoreTheme
 import com.lilly.datastore.viewmodel.PreferenceVM
 
@@ -57,6 +58,7 @@ fun DataStoreStudent() {
     val getName = dataStore.nameFlow.collectAsState(initial = "")
     val getMarks = dataStore.marksFlow.collectAsState(initial = 0)
     val getStatus = dataStore.statusFlow.collectAsState(initial = false)
+    val preferenceVM :PreferenceVM = PreferenceVM(repo = PreferenceRepo(context))
     Column(horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center) {
         Text(text = "Name: ${getName.value}", fontSize = 18.sp)
@@ -65,27 +67,10 @@ fun DataStoreStudent() {
         Spacer(modifier = Modifier.padding(20.dp))
         Button(onClick = {
             context.startActivity(Intent(context, SharedPreferenceActivity::class.java))
+            preferenceVM.saveDetails(student = Student(name = getName.value, marks = getMarks.value, status = getStatus.value))
         }
         ) {
             Text("Shared Preference")
         }
-    }
-}
-
-@Composable
-fun PreferenceSaveInRepo(preferenceVM: PreferenceVM){
-    val context = LocalContext.current
-    val dataStore = StudentPrefImpl(context)
-    val getName = dataStore.nameFlow.collectAsState(initial = "")
-    val getMarks = dataStore.marksFlow.collectAsState(initial = 0)
-    val getStatus = dataStore.statusFlow.collectAsState(initial = false)
-    preferenceVM.saveDetails(student = Student(name = getName.value, marks = getMarks.value, status = getStatus.value))
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview3() {
-    DataStoreTheme {
-        DataStoreStudent()
     }
 }

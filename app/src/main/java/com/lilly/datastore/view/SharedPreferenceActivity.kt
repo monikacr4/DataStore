@@ -11,9 +11,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.lilly.datastore.model.Student
 import com.lilly.datastore.repository.PreferenceRepo
 import com.lilly.datastore.view.ui.theme.DataStoreTheme
 import com.lilly.datastore.viewmodel.PreferenceVM
@@ -41,11 +43,11 @@ class SharedPreferenceActivity : ComponentActivity() {
 @Composable
 fun PreferenceStudent(preferenceVM: PreferenceVM) {
     preferenceVM.getDetails()
-    val details = preferenceVM.studentDetails.observeAsState()
+    val details: State<Student?> = preferenceVM.studentDetails.observeAsState()
         Column(verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = details.value?.name.toString())
-            Text(text = details.value?.marks.toString())
-            Text(text = details.value?.status.toString())
+            Text(text = "${details.value?.name}")
+            Text(text = "${details.value?.marks}")
+            Text(text = "${details.value?.status}")
         }
 }
